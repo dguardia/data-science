@@ -1,0 +1,13 @@
+beautifulsoup4
+boilerpipe3
+charade
+cluster
+envoy
+facebook-sdk
+mailbox
+nltk
+python3-linkedin
+qgrid
+simplekml
+twitter
+twitter-text

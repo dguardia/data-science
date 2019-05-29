@@ -1,0 +1,58 @@
+version: "3.1"
+services:
+
+  notebook:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: davidguardia.com/notebook
+    container_name: notebook
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "8888:8888"
+    env_file:
+      - "./config/jupyter.env"
+    volumes:
+      - "./notebooks:/notebooks"
+      - "notebooks_data:/notebooks/data"
+    networks:
+      data_science:
+
+  postgress_db:
+    build:
+      context: ./db/
+      dockerfile: Dockerfile
+    env_file:
+     - "./config/jupyter.env"
+    image: davidguardia.com/postgress
+    container_name: postgress_db
+    restart: unless-stopped
+    tty: true
+    ports:
+        - "5432:5432"
+    environment:
+      - "FILLA_DB_USER=daveg"
+      - "FILLA_DB_PASSWORD=password"
+      - "FILLA_DB_DATABASE=pub_workspace"
+      - "POSTGRES_PASSWORD=postgres"
+    volumes:
+      - "db_data:/var/lib/postgresql/data"
+    networks:
+      data_science:
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: always
+    networks:
+      data_science:
+    ports:
+      - 8080:8080
+
+networks:
+  data_science:
+  
+volumes:
+  db_data:
+  notebooks_data:
