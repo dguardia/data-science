@@ -4,10 +4,12 @@ charade
 cluster
 envoy
 facebook-sdk
+jupyter
 mailbox
 nltk
 python3-linkedin
 qgrid
+Scrapy
 simplekml
 twitter
 twitter-text
